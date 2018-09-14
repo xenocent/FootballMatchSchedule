@@ -17,17 +17,13 @@ class MainPresenter(private val view: MainView,
     fun getNextEventList(league:String?){
         view.showLoading()
         doAsync {
-//            val data = gson.fromJson(apiRepository.doRequest(TheSportDBApi.getNextEvent(league)),
-//                    EventScheduleResp::class.java
-//            )
-
-            val data = apiRepository.doRequest(TheSportDBApi.getNextEvent(league))
-
-            info("datanya "+ data)
-//            uiThread {
-//                view.hideLoading()
-//                view.showLeagueList(data.EventSchedules)
-//            }
+            val data = gson.fromJson(apiRepository.doRequest(TheSportDBApi.getNextEvent(league)),
+                    EventScheduleResp::class.java
+            )
+            uiThread {
+                view.hideLoading()
+                view.showLeagueList(data.EventSchedule)
+            }
         }
     }
 
@@ -40,7 +36,7 @@ class MainPresenter(private val view: MainView,
 
             uiThread {
                 view.hideLoading()
-                view.showLeagueList(data.EventSchedules)
+                view.showLeagueList(data.EventSchedule)
             }
         }
     }

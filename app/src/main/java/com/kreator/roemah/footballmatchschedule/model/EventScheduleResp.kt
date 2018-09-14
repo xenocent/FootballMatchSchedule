@@ -1,3 +1,8 @@
 package com.kreator.roemah.footballmatchschedule.model
 
-data class EventScheduleResp(val EventSchedules:List<EventSchedule>)
+import com.google.gson.annotations.SerializedName
+
+data class EventScheduleResp(
+        @SerializedName("events")
+        val EventSchedule:List<EventSchedule>
+)

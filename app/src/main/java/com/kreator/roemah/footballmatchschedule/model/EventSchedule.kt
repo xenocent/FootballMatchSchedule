@@ -3,8 +3,8 @@ package com.kreator.roemah.footballmatchschedule.model
 import com.google.gson.annotations.SerializedName
 
 data class EventSchedule(
-//    @SerializedName("idEvent")
-//    var eventId:String? = null,
+    @SerializedName("idEvent")
+    var eventId:String? = null,
 
     @SerializedName("strHomeTeam")
     var homeTeam:String? =null,

@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
         linearLayout {
             lparams(width = matchParent, height = matchParent)
             orientation = LinearLayout.VERTICAL
+            topPadding = dip(16)
+            leftPadding = dip(16)
+            rightPadding = dip(16)
 
             swipeRefresh = swipeRefreshLayout {
                 setColorSchemeResources(colorAccent,
@@ -60,8 +63,10 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
         val gson = Gson()
         presenter = MainPresenter(this,request,gson)
 
+        presenter.getPastEventList("4329")
+
         swipeRefresh.onRefresh {
-            presenter.getNextEventList("4328")
+            presenter.getPastEventList("4328")
         }
     }
 
