@@ -5,4 +5,6 @@
     <item name="TeamAwayScore" type="id" />
     <item name="TeamHome" type="id" />
     <item name="TeamHomeScore" type="id" />
+    <item name="layout_event" type="id" />
+    <item name="layout_event_next" type="id"/>
 </resources>

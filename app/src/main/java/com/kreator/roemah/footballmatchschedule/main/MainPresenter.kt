@@ -22,7 +22,7 @@ class MainPresenter(private val view: MainView,
             )
             uiThread {
                 view.hideLoading()
-                view.showLeagueList(data.EventSchedule)
+                view.showLeagueListNext(data.EventSchedule)
             }
         }
     }
@@ -45,7 +45,5 @@ class MainPresenter(private val view: MainView,
 
     }
 
-    fun getEventDetail(eventId:String?){
 
-    }
 }

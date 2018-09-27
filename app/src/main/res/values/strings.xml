@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Football Match Schedule</string>
+    <string name="last">Last Game</string>
+    <string name="next">Next Game</string>
+    
+
 </resources>

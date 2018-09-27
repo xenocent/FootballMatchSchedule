@@ -10,15 +10,18 @@ data class EventSchedule(
     var homeTeam:String? =null,
 
     @SerializedName("intHomeScore")
-    var homeScore:Int? =null,
+    var homeScore:String? =" ",
 
     @SerializedName("strAwayTeam")
     var awayTeam:String? = null,
 
     @SerializedName("intAwayScore")
-    var awayScore:Int? =null,
+    var awayScore:String? =" ",
 
     @SerializedName("dateEvent")
-    var eventDate:String? = null
+    var eventDate:String? = null,
+
+    @SerializedName("strFilename")
+    var fileName:String? = null
 
 )
