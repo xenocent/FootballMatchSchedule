@@ -2,8 +2,10 @@ package com.kreator.roemah.footballmatchschedule.api
 
 import android.net.Uri
 import com.kreator.roemah.footballmatchschedule.BuildConfig
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 
-object TheSportDBApi {
+object TheSportDBApi : AnkoLogger{
 
     fun getAllLeague():String{
         return Uri.parse(BuildConfig.BASE_URL).buildUpon()
@@ -47,6 +49,18 @@ object TheSportDBApi {
                 .appendPath(BuildConfig.TSDB_API_KEY)
                 .appendPath("lookupevent.php")
                 .appendQueryParameter("id", league)
+                .build()
+                .toString()
+    }
+
+    fun getFlagTeam(team:String?):String{
+        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+                .appendPath("api")
+                .appendPath("v1")
+                .appendPath("json")
+                .appendPath(BuildConfig.TSDB_API_KEY)
+                .appendPath("lookupteam.php")
+                .appendQueryParameter("id", team)
                 .build()
                 .toString()
     }

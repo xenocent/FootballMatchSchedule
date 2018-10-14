@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--Main -->
     <item name="TeamAway" type="id" />
     <item name="EventDate" type="id" />
     <item name="TeamAwayScore" type="id" />
@@ -7,4 +8,46 @@
     <item name="TeamHomeScore" type="id" />
     <item name="layout_event" type="id" />
     <item name="layout_event_next" type="id"/>
+
+    <!--// Detail-->
+    <item name="scoreDetailHome" type="id" />
+    <item name="scoreDetailAway" type="id" />
+    <item name="teamDetailHome" type="id" />
+    <item name="teamDetailAway" type="id" />
+    <item name="formDetailHome" type="id" />
+    <item name="formDetailAway" type="id" />
+    <item name="goalDetailHome" type="id" />
+    <item name="goalDetailAway" type="id" />
+    <item name="shotDetailHome" type="id" />
+    <item name="shotDetailAway" type="id" />
+    <item name="keepDetailHome" type="id" />
+    <item name="keepDetailAway" type="id" />
+    <item name="defDetailHome" type="id" />
+    <item name="defDetailAway" type="id" />
+    <item name="midDetailHome" type="id" />
+    <item name="midDetailAway" type="id" />
+    <item name="fwdDetailHome" type="id" />
+    <item name="fwdDetailAway" type="id" />
+    <item name="subDetailHome" type="id" />
+    <item name="subDetailAway" type="id" />
+    <item name="DateDetail" type="id" />
+    <item name="vs" type="id" />
+    <item name="relativeLayouta" type="id" />
+    <item name="layoutLineara" type="id" />
+    <item name="layoutLinearbb" type="id" />
+    <item name="logoHome" type="id" />
+    <item name="logoAway" type="id" />
+    <item name="teamHomeForm" type="id" />
+    <item name="relativeLayoutb" type="id" />
+    <item name="nextTitle" type="id" />
+    <item name="pastTitle" type="id" />
+
+    <item name="main_frame" type="id" />
+    <item name="bottom_layout_home" type="id" />
+    <item name="bottom_nav_home" type="id" />
+    <item name="listNextEvent" type="id" />
+    <item name="listPastEvent" type="id" />
+    <item name="ListEvent" type="id" />
+
+
 </resources>

@@ -1,10 +1,9 @@
-package com.kreator.roemah.footballmatchschedule.main
+package com.kreator.roemah.footballmatchschedule.nextfragment
 
 import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 
-interface MainView{
+interface NextView {
     fun showLoading()
     fun hideLoading()
-    fun showLeagueList(data:List<EventSchedule>)
     fun showLeagueListNext(data:List<EventSchedule>)
 }

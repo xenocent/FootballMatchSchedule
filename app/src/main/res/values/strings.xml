@@ -2,6 +2,13 @@
     <string name="app_name">Football Match Schedule</string>
     <string name="last">Last Game</string>
     <string name="next">Next Game</string>
-    
+
+    <string name="na">N/A</string>
+
+    <!--menu-->
+    <string name="eventLast">Last Event</string>
+    <string name="eventNext">Next Event</string>
+    <string name="favorites">Favorites</string>
+
 
 </resources>

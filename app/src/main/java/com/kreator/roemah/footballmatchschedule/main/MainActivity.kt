@@ -1,32 +1,24 @@
 package com.kreator.roemah.footballmatchschedule.main
 
-import android.app.Fragment
 import android.content.res.ColorStateList
-import android.graphics.Color
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Gravity
-import android.view.MenuInflater
 import android.view.View
-import android.view.ViewManager
 import android.widget.FrameLayout
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import com.google.gson.Gson
 import com.kreator.roemah.footballmatchschedule.R
 import com.kreator.roemah.footballmatchschedule.R.color.colorAccent
 import com.kreator.roemah.footballmatchschedule.api.ApiRepository
 import com.kreator.roemah.footballmatchschedule.detail.DetailActivity
-import com.kreator.roemah.footballmatchschedule.model.EventDetail
 import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 import com.kreator.roemah.footballmatchschedule.util.invisible
 import com.kreator.roemah.footballmatchschedule.util.visible
 import org.jetbrains.anko.*
-import org.jetbrains.anko.custom.ankoView
 import org.jetbrains.anko.design.bottomNavigationView
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import org.jetbrains.anko.support.v4.onRefresh
@@ -46,12 +38,9 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
     private lateinit var progressBarNext:ProgressBar
     private lateinit var swipeRefresh: SwipeRefreshLayout
     private lateinit var swipeRefreshNext:SwipeRefreshLayout
-    private lateinit var bnv_btn:BottomNavigationView
+    private lateinit var bnvBtn:BottomNavigationView
     private lateinit var fma:FrameLayout
     private lateinit var fmb:FrameLayout
-
-//    public inline fun ViewManager.bottomNavigationView(theme: Int = 0) = bottomNavigationView(theme) {}
-//    public inline fun ViewManager.bottomNavigationView(theme: Int = 0, init: BottomNavigationView.() -> Unit) = ankoView({ BottomNavigationView(it) }, theme, init)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,10 +65,15 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
                         id = R.id.layout_event
                         lparams(width= matchParent,height = wrapContent)
 
+                        textView ("Past 15 Event"){
+                            id = R.id.pastTitle
+                            textSize = 20f
+                        }.lparams(width = wrapContent,height = wrapContent){centerHorizontally()}
+
                         listPastEvent = recyclerView {
                             lparams(width= matchParent,height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
-                        }
+                        }.lparams { below(R.id.pastTitle) }
 
                         progressBar = progressBar{}.lparams{centerHorizontally()}
                     }
@@ -102,9 +96,16 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
                         id = R.id.layout_event_next
                         lparams(width= matchParent,height = wrapContent)
 
+                        textView ("Next 15 Event"){
+                            id = R.id.nextTitle
+                            textSize = 20f
+                        }.lparams(width = wrapContent,height = wrapContent){centerHorizontally()}
+
                         listNextEvent = recyclerView {
                             lparams(width= matchParent,height = wrapContent)
                             layoutManager = LinearLayoutManager(ctx)
+                        }.lparams {
+                            below(R.id.nextTitle)
                         }
 
                         progressBarNext = progressBar{}.lparams{centerHorizontally()}
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
                 above(Ids.bottom_nav)
             }
 
-            bnv_btn = bottomNavigationView {
+            bnvBtn = bottomNavigationView {
                 id = Ids.bottom_nav
                 backgroundColor = android.R.color.white
                 itemBackgroundResource = android.R.color.white
@@ -129,11 +130,9 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
                     if(item.toString().equals("Last Game")){
                         fma.visibility = View.VISIBLE
                         fmb.visibility = View.GONE
-                        info {"Next Game Active" }
                     }else {
                         fma.visibility = View.GONE
                         fmb.visibility = View.VISIBLE
-                        info { "Last Game Active" }
                     }
                     true
                 }
@@ -159,15 +158,15 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
         presenter = MainPresenter(this,request,gson)
         presentera = MainPresenter(this,request,gson)
 
-        presentera.getNextEventList("4329")
-        presenter.getPastEventList("4329")
+        presentera.getNextEventList("4328")
+        presenter.getPastEventList("4328")
 
         swipeRefresh.onRefresh {
-            presenter.getPastEventList("4329")
+            presenter.getPastEventList("4328")
         }
 
         swipeRefreshNext.onRefresh {
-            presentera.getNextEventList("4329")
+            presentera.getNextEventList("4328")
         }
 
     }
@@ -200,13 +199,5 @@ class MainActivity : AppCompatActivity(),MainView,AnkoLogger   {
         eventNext.clear()
         eventNext.addAll(data)
         adapterNext.notifyDataSetChanged()
-    }
-
-    override fun showNextDataEventList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun showPastDataEventList() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

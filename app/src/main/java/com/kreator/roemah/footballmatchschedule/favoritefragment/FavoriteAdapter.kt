@@ -1,4 +1,4 @@
-package com.kreator.roemah.footballmatchschedule.main
+package com.kreator.roemah.footballmatchschedule.favoritefragment
 
 import android.graphics.Color
 import android.support.v7.widget.RecyclerView
@@ -7,26 +7,23 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.kreator.roemah.footballmatchschedule.R
-import com.kreator.roemah.footballmatchschedule.detail.DetailActivity
-import com.kreator.roemah.footballmatchschedule.model.EventSchedule
+import com.kreator.roemah.footballmatchschedule.model.Favorite
 import org.jetbrains.anko.*
-import org.jetbrains.anko.cardview.v7._CardView
-import org.jetbrains.anko.cardview.v7.cardView
 
-class MainAdapter (private val event: List<EventSchedule>,private val listener: (EventSchedule) -> Unit):RecyclerView.Adapter<TeamViewHolder>() {
+class FavoriteAdapter (private val favorite: List<Favorite>, private val listener: (Favorite) -> Unit): RecyclerView.Adapter<TeamViewHolder>(),AnkoLogger {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TeamViewHolder {
         return TeamViewHolder(EventListUI().createView(AnkoContext.create(parent.context,parent)))
     }
 
     override fun onBindViewHolder(holder: TeamViewHolder, position: Int) {
-        holder.bindItem(event[position],listener)
+        holder.bindItem(favorite[position],listener)
     }
-    override fun getItemCount(): Int = event.size
+    override fun getItemCount(): Int = favorite.size
 
 }
 
-class EventListUI : AnkoComponent<ViewGroup>{
+class EventListUI : AnkoComponent<ViewGroup> {
     override fun createView(ui: AnkoContext<ViewGroup>): View {
         return with(ui){
             linearLayout {
@@ -48,7 +45,7 @@ class EventListUI : AnkoComponent<ViewGroup>{
 
                 linearLayout {
                     lparams(width= matchParent, height = wrapContent)
-                    orientation=LinearLayout.HORIZONTAL
+                    orientation= LinearLayout.HORIZONTAL
 
                     textView {
                         id = R.id.TeamHome
@@ -86,23 +83,24 @@ class EventListUI : AnkoComponent<ViewGroup>{
     }
 }
 
-class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view){
+class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view),AnkoLogger{
 
-    private val dateEvent:TextView = view.find(R.id.EventDate)
-    private val teamAway:TextView = view.find(R.id.TeamAway)
-    private val teamAwayScore:TextView = view.find(R.id.TeamAwayScore)
-    private val teamHome:TextView = view.find(R.id.TeamHome)
-    private val teamHomeScore:TextView = view.find(R.id.TeamHomeScore)
+    private val dateEvent: TextView = view.find(R.id.EventDate)
+    private val teamAway: TextView = view.find(R.id.TeamAway)
+    private val teamAwayScore: TextView = view.find(R.id.TeamAwayScore)
+    private val teamHome: TextView = view.find(R.id.TeamHome)
+    private val teamHomeScore: TextView = view.find(R.id.TeamHomeScore)
 
-    fun bindItem(event: EventSchedule, listener:(EventSchedule)->Unit) {
-        dateEvent.text = event.eventDate
-        teamAway.text = event.awayTeam
-        teamAwayScore.text = event.awayScore
-        teamHome.text = event.homeTeam
-        teamHomeScore.text = event.homeScore
+    fun bindItem(favorite: Favorite, listener:(Favorite)->Unit) {
+        info{"data"+favorite}
+        dateEvent.text = favorite.eventDate
+        teamAway.text = favorite.awayTeam
+        teamAwayScore.text = favorite.awayScore
+        teamHome.text = favorite.homeTeam
+        teamHomeScore.text = favorite.homeScore
 
         itemView.setOnClickListener{
-            listener(event)
+            listener(favorite)
         }
     }
 }

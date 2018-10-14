@@ -16,13 +16,13 @@ data class EventDetail(
         var teamHomeFormation:String?=null,
 
         @SerializedName("intHomeScore")
-        var teamHomeScore:Int? = null,
+        var teamHomeScore:String? = null,
 
         @SerializedName("strHomeGoalDetails")
         var teamHomeGoalDetail:String? =null,
 
         @SerializedName("intHomeShots")
-        var teamHomeShots:Int? = null,
+        var teamHomeShots:String? = null,
 
         @SerializedName("strHomeLineupGoalkeeper")
         var homeGoalKeeper:String?=null,
@@ -46,13 +46,13 @@ data class EventDetail(
         var teamAwayFormation:String?=null,
 
         @SerializedName("intAwayScore")
-        var teamAwayScore: Int? = null,
+        var teamAwayScore: String? = null,
 
         @SerializedName("strAwayGoalDetails")
         var teamAwayGoalDetail:String? = null,
 
         @SerializedName("intAwayShots")
-        var teamAwayShots:Int? = null,
+        var teamAwayShots:String? = null,
 
         @SerializedName("strAwayLineupGoalkeeper")
         var awayGoalKeeper:String? =null,
@@ -67,5 +67,11 @@ data class EventDetail(
         var awayForward:String? =null,
 
         @SerializedName("strAwayLineupSubstitutes")
-        var awaySub:String? =null
+        var awaySub:String? =null,
+
+        @SerializedName("idHomeTeam")
+        var homeId:String?=null,
+
+        @SerializedName("idAwayTeam")
+        var awayId:String?=null
 )

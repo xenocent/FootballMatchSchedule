@@ -3,11 +3,10 @@ package com.kreator.roemah.footballmatchschedule.main
 import com.google.gson.Gson
 import com.kreator.roemah.footballmatchschedule.api.ApiRepository
 import com.kreator.roemah.footballmatchschedule.api.TheSportDBApi
-import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 import com.kreator.roemah.footballmatchschedule.model.EventScheduleResp
+import com.kreator.roemah.footballmatchschedule.model.TeamFlagResp
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.doAsync
-import org.jetbrains.anko.info
 import org.jetbrains.anko.uiThread
 
 class MainPresenter(private val view: MainView,
@@ -41,8 +40,11 @@ class MainPresenter(private val view: MainView,
         }
     }
 
-    fun getLeagueList(){
-
+    fun getLeagueList(team:String?){
+        doAsync {
+            val gmbr = gson.fromJson(apiRepository.doRequest(TheSportDBApi.getFlagTeam(team)),
+                    TeamFlagResp::class.java)
+        }
     }
 
 
