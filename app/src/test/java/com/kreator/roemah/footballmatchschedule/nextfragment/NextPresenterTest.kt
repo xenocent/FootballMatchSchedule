@@ -2,12 +2,12 @@ package com.kreator.roemah.footballmatchschedule.nextfragment
 
 import com.google.gson.Gson
 import com.kreator.roemah.footballmatchschedule.api.ApiRepository
-import com.kreator.roemah.footballmatchschedule.api.TheSportDBApi
 import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 import com.kreator.roemah.footballmatchschedule.model.EventScheduleResp
+import com.kreator.roemah.footballmatchschedule.util.TestContextProvider
+import kotlinx.coroutines.experimental.runBlocking
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.mockito.Mock
 import org.mockito.Mockito
@@ -30,8 +30,7 @@ class NextPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = NextPresenter(view,apiRepository,gson)
-
+        presenter = NextPresenter(view,apiRepository,gson, TestContextProvider())
     }
 
     @Test
@@ -40,14 +39,20 @@ class NextPresenterTest {
         val response = EventScheduleResp(match)
         val league = "4328"
 
-        Mockito.`when`(gson.fromJson(apiRepository.doRequest(TheSportDBApi.getPastEvent(league)),
-                EventScheduleResp::class.java
-        )).thenReturn(response)
+        runBlocking {
+            Mockito.`when`(gson.fromJson(apiRepository.
+                    doRequest("https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=4328"),
+                    EventScheduleResp::class.java
+            )).thenReturn(response)
+        }
 
         presenter.getNextEventList(league)
 
-        Mockito.verify(view).showLoading()
-        Mockito.verify(view).showLeagueListNext(match)
-        Mockito.verify(view).hideLoading()
+        Mockito.verify(view)?.showLoading()
+
+        if(match.isNotEmpty()){
+            Mockito.verify(view)?.showLeagueListNext(match)
+            Mockito.verify(view)?.hideLoading()
+        }
     }
 }

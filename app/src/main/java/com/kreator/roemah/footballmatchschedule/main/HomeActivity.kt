@@ -10,8 +10,10 @@ import android.widget.LinearLayout
 import com.kreator.roemah.footballmatchschedule.R
 import com.kreator.roemah.footballmatchschedule.R.id.*
 import com.kreator.roemah.footballmatchschedule.favoritefragment.FavoriteFragment
+import com.kreator.roemah.footballmatchschedule.favoriteteamfragment.FavoriteTeamFragment
 import com.kreator.roemah.footballmatchschedule.lastfragment.LastFragment
 import com.kreator.roemah.footballmatchschedule.nextfragment.NextFragment
+import com.kreator.roemah.footballmatchschedule.teamsfragment.TeamsFragment
 import org.jetbrains.anko.*
 import org.jetbrains.anko.design.bottomNavigationView
 
@@ -44,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
                     itemTextColor = ColorStateList.valueOf(R.drawable.nav_item_color_state)
                     inflateMenu(R.menu.bottom_navigation_menu)
                 }.lparams(width = matchParent, height = wrapContent)
-            }.lparams{
+            }.lparams {
                 alignParentBottom()
             }
         }
@@ -60,7 +62,12 @@ class HomeActivity : AppCompatActivity() {
                 fav -> {
                     loadFavoritesFragment(savedInstanceState)
                 }
-
+                team -> {
+                    loadTeamsFragment(savedInstanceState)
+                }
+                favTeam->{
+                    loadTeamFavoritesFragment(savedInstanceState)
+                }
             }
             true
         }
@@ -91,6 +98,24 @@ class HomeActivity : AppCompatActivity() {
             supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.main_frame, FavoriteFragment(), FavoriteFragment::class.java.simpleName)
+                    .commit()
+        }
+    }
+
+    private fun loadTeamsFragment(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frame, TeamsFragment(), TeamsFragment::class.java.simpleName)
+                    .commit()
+        }
+    }
+
+    private fun loadTeamFavoritesFragment(savedInstanceState: Bundle?){
+        if(savedInstanceState == null){
+            supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_frame,FavoriteTeamFragment(),FavoriteTeamFragment::class.java.simpleName)
                     .commit()
         }
     }

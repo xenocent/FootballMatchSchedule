@@ -64,4 +64,50 @@ object TheSportDBApi : AnkoLogger{
                 .build()
                 .toString()
     }
+
+    fun searchTeam(team:String?):String{
+        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+                .appendPath("api")
+                .appendPath("v1")
+                .appendPath("json")
+                .appendPath(BuildConfig.TSDB_API_KEY)
+                .appendPath("searchteams.php")
+                .appendQueryParameter("t", team)
+                .build()
+                .toString()
+    }
+
+    fun searchEvent(event:String):String{
+        return Uri.parse(BuildConfig.BASE_URL).buildUpon()
+                .appendPath("api")
+                .appendPath("v1")
+                .appendPath("json")
+                .appendPath(BuildConfig.TSDB_API_KEY)
+                .appendPath("searchevents.php")
+                .appendQueryParameter("e", event)
+                .build()
+                .toString()
+    }
+
+    fun getTeams(league: String?): String {
+        return BuildConfig.BASE_URL +
+                "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/search_all_teams.php?l=" + league
+    }
+
+    fun getDetailTeam(idTeam: String?): String {
+        return BuildConfig.BASE_URL +
+                "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookupteam.php?id=" + idTeam
+    }
+
+    fun getPlayerTeam(teamid:String):String{
+        return BuildConfig.BASE_URL +
+                "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookup_all_players.php?id=" + teamid
+    }
+
+    fun getPlayerDetail(playerId: String?): String {
+        return BuildConfig.BASE_URL +
+                "api/v1/json/${BuildConfig.TSDB_API_KEY}" + "/lookupplayer.php?id=" + playerId
+    }
+
+
 }

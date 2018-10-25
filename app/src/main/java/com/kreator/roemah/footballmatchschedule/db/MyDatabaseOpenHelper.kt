@@ -4,9 +4,10 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import com.kreator.roemah.footballmatchschedule.model.Favorite
 import com.kreator.roemah.footballmatchschedule.model.FavoriteDetail
+import com.kreator.roemah.footballmatchschedule.model.FavoritesTeam
 import org.jetbrains.anko.db.*
 
-class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "FavoriteMatch.db", null, 1) {
+class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Favorites.db", null, 3) {
     companion object {
         private var instance: MyDatabaseOpenHelper? = null
 
@@ -57,12 +58,19 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Favorit
                 FavoriteDetail.AWAYMID to TEXT,
                 FavoriteDetail.AWAYFORWARD to TEXT,
                 FavoriteDetail.AWAYSUB to TEXT)
+
+        db.createTable(FavoritesTeam.TABLE_FAVORITE_TEAM, true,
+                FavoritesTeam.ID to INTEGER + PRIMARY_KEY + AUTOINCREMENT,
+                FavoritesTeam.TEAM_ID to TEXT + UNIQUE,
+                FavoritesTeam.TEAM_NAME to TEXT,
+                FavoritesTeam.TEAM_BADGE to TEXT)
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Here you can upgrade tables, as usual
-        db.dropTable( Favorite.TABLE_FAVORITE,true)
+        db.dropTable(Favorite.TABLE_FAVORITE,true)
         db.dropTable(FavoriteDetail.TABLE_FAVORITE_DETAIL,true)
+        db.dropTable(FavoritesTeam.TABLE_FAVORITE_TEAM, true)
     }
 }
 

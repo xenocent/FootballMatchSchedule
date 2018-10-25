@@ -2,19 +2,19 @@ package com.kreator.roemah.footballmatchschedule.lastfragment
 
 import com.google.gson.Gson
 import com.kreator.roemah.footballmatchschedule.api.ApiRepository
-import com.kreator.roemah.footballmatchschedule.api.TheSportDBApi
 import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 import com.kreator.roemah.footballmatchschedule.model.EventScheduleResp
+import com.kreator.roemah.footballmatchschedule.util.TestContextProvider
 import org.junit.Test
 
-import org.junit.Assert.*
 import org.junit.Before
 import org.mockito.Mock
+import org.mockito.Mockito
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
 import org.mockito.MockitoAnnotations
 
 class LastPresenterTest {
+
     private lateinit var presenter: LastPresenter
 
     @Mock
@@ -32,7 +32,7 @@ class LastPresenterTest {
     @Before
     fun setUp() {
         MockitoAnnotations.initMocks(this)
-        presenter = LastPresenter(view,apiRepository,gson)
+        presenter = LastPresenter(view,apiRepository,gson, TestContextProvider())
     }
 
     @Test
@@ -42,14 +42,17 @@ class LastPresenterTest {
         val league = "4328"
 
         `when`(gson.fromJson(apiRepository
-                .doRequest(TheSportDBApi.getPastEvent(league)),
+                .doRequest("https://www.thesportsdb.com/api/v1/json/1/eventspastleague.php?id=4328"),
                 EventScheduleResp::class.java
         )).thenReturn(response)
 
         presenter.getPastEventList(league)
 
-        verify(view).showLoading()
-        verify(view).showLeagueList(match)
-        verify(view).hideLoading()
+        Mockito.verify(view)?.showLoading()
+        if(match.isNotEmpty()) {
+            Mockito.verify(view)?.showLeagueList(match)
+            Mockito.verify(view)?.hideLoading()
+        }
+
     }
 }

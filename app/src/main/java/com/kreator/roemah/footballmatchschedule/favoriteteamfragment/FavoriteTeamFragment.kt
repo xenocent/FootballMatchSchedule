@@ -1,8 +1,8 @@
-package com.kreator.roemah.footballmatchschedule.favoritefragment
+package com.kreator.roemah.footballmatchschedule.favoriteteamfragment
 
-import android.support.v4.app.Fragment
 import android.content.Context
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -10,9 +10,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.kreator.roemah.footballmatchschedule.R
+import com.kreator.roemah.footballmatchschedule.R.color.colorAccent
 import com.kreator.roemah.footballmatchschedule.db.database
-import com.kreator.roemah.footballmatchschedule.detail.DetailActivity
-import com.kreator.roemah.footballmatchschedule.model.Favorite
+import com.kreator.roemah.footballmatchschedule.model.FavoritesTeam
+import com.kreator.roemah.footballmatchschedule.teamdetail.TeamDetailActivity
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.select
@@ -21,17 +22,17 @@ import org.jetbrains.anko.support.v4.ctx
 import org.jetbrains.anko.support.v4.onRefresh
 import org.jetbrains.anko.support.v4.swipeRefreshLayout
 
-class FavoriteFragment: Fragment(), AnkoComponent<Context>, AnkoLogger{
-    private var favorites: MutableList<Favorite> = mutableListOf()
-    private lateinit var adapter: FavoriteAdapter
+class FavoriteTeamFragment: Fragment(), AnkoComponent<Context>, AnkoLogger {
+    private var favorites: MutableList<FavoritesTeam> = mutableListOf()
+    private lateinit var adapter:FavoriteTeamAdapter
     private lateinit var listEvent: RecyclerView
     private lateinit var swipeRefresh: SwipeRefreshLayout
 
-    override fun onActivityCreated(savedInstanceStaste: Bundle?) {
-        super.onActivityCreated(savedInstanceStaste)
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
-        adapter = FavoriteAdapter(favorites){
-            ctx.startActivity<DetailActivity>("id" to it.eventId,"date" to it.eventDate,"file" to it.fileName)
+        adapter = FavoriteTeamAdapter(favorites){
+            ctx.startActivity<TeamDetailActivity>("id" to "${it.teamId}")
         }
 
         listEvent.adapter = adapter
@@ -46,32 +47,22 @@ class FavoriteFragment: Fragment(), AnkoComponent<Context>, AnkoLogger{
         return createView(AnkoContext.create(ctx))
     }
 
-    override fun createView(ui: AnkoContext<Context>): View =with(ui){
+    override fun createView(ui: AnkoContext<Context>): View = with(ui) {
         linearLayout {
-            lparams(width = matchParent, height = wrapContent)
+            lparams (width = matchParent, height = wrapContent)
             topPadding = dip(16)
             leftPadding = dip(16)
             rightPadding = dip(16)
+
             swipeRefresh = swipeRefreshLayout {
                 setColorSchemeResources(R.color.colorAccent,
                         android.R.color.holo_green_light,
                         android.R.color.holo_orange_light,
                         android.R.color.holo_red_light)
 
-                relativeLayout {
-                    id = R.id.layout_event
-                    lparams(width= matchParent,height = wrapContent)
-
-                    textView ("Favorite Event"){
-                        id = R.id.pastTitle
-                        textSize = 20f
-                    }.lparams(width = wrapContent,height = wrapContent){centerHorizontally()}
-
-                    listEvent = recyclerView {
-                        id = R.id.ListEvent
-                        lparams(width= matchParent,height = wrapContent)
-                        layoutManager = LinearLayoutManager(ctx)
-                    }.lparams { below(R.id.pastTitle) }
+                listEvent = recyclerView {
+                    lparams (width = matchParent, height = wrapContent)
+                    layoutManager = LinearLayoutManager(ctx)
                 }
             }
         }
@@ -80,12 +71,11 @@ class FavoriteFragment: Fragment(), AnkoComponent<Context>, AnkoLogger{
     private fun showFavorite(){
         context?.database?.use {
             swipeRefresh.isRefreshing = false
-            val result = select(Favorite.TABLE_FAVORITE)
+            val result = select(FavoritesTeam.TABLE_FAVORITE_TEAM)
 
-            val favorite = result.parseList(classParser<Favorite>())
+            val favorite = result.parseList(classParser<FavoritesTeam>())
             favorites.addAll(favorite)
             adapter.notifyDataSetChanged()
         }
     }
-
 }

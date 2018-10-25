@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.kreator.roemah.footballmatchschedule.R
 import com.kreator.roemah.footballmatchschedule.model.Favorite
+import com.kreator.roemah.footballmatchschedule.util.setFormattedDateFav
 import org.jetbrains.anko.*
 
 class FavoriteAdapter (private val favorite: List<Favorite>, private val listener: (Favorite) -> Unit): RecyclerView.Adapter<TeamViewHolder>(),AnkoLogger {
@@ -93,7 +94,7 @@ class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view),AnkoLogger{
 
     fun bindItem(favorite: Favorite, listener:(Favorite)->Unit) {
         info{"data"+favorite}
-        dateEvent.text = favorite.eventDate
+        dateEvent.setFormattedDateFav(favorite.eventDate)
         teamAway.text = favorite.awayTeam
         teamAwayScore.text = favorite.awayScore
         teamHome.text = favorite.homeTeam

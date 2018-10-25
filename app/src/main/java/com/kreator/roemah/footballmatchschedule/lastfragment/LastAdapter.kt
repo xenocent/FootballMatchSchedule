@@ -8,6 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.kreator.roemah.footballmatchschedule.R
 import com.kreator.roemah.footballmatchschedule.model.EventSchedule
+import com.kreator.roemah.footballmatchschedule.util.setFormattedDate
 import org.jetbrains.anko.*
 
 class LastAdapter (private val event: List<EventSchedule>, private val listener: (EventSchedule) -> Unit): RecyclerView.Adapter<TeamViewHolder>() {
@@ -92,7 +93,7 @@ class TeamViewHolder(view: View) : RecyclerView.ViewHolder(view){
     private val teamHomeScore: TextView = view.find(R.id.TeamHomeScore)
 
     fun bindItem(event: EventSchedule, listener:(EventSchedule)->Unit) {
-        dateEvent.text = event.eventDate
+        dateEvent.setFormattedDate(event.eventDate)
         teamAway.text = event.awayTeam
         teamAwayScore.text = event.awayScore
         teamHome.text = event.homeTeam

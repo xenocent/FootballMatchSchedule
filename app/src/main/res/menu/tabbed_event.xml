@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <!--<item-->
+        <!--android:id="@+id/tablast"-->
+        <!--android:title="@string/last"-->
+        <!--android:icon="@drawable/icon_date"-->
+        <!--/>-->
+    <!--<item-->
+        <!--android:id="@+id/tabnext"-->
+        <!--android:title="@string/next"-->
+        <!--android:icon="@drawable/icon_next_date"-->
+        <!--/>-->
+</menu>

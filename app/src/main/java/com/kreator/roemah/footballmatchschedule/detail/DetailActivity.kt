@@ -20,6 +20,8 @@ import com.kreator.roemah.footballmatchschedule.model.EventSchedule
 import com.kreator.roemah.footballmatchschedule.model.Favorite
 import com.kreator.roemah.footballmatchschedule.model.TeamFlag
 import com.kreator.roemah.footballmatchschedule.util.invisible
+import com.kreator.roemah.footballmatchschedule.util.setFormattedDate
+import com.kreator.roemah.footballmatchschedule.util.setFormattedDateFav
 import com.kreator.roemah.footballmatchschedule.util.visible
 import org.jetbrains.anko.*
 import org.jetbrains.anko.db.classParser
@@ -341,10 +343,10 @@ class DetailActivity : AppCompatActivity(), DetailView, AnkoLogger {
 
         val intent = intent
         idText = intent.getStringExtra("id")
-        date = intent.getStringExtra("date")
+//        date = intent.getStringExtra("date")
         filePath = intent.getStringExtra("file")
 
-        dateTextView.text = date
+//        dateTextView.setFormattedDate(date)
 
         supportActionBar?.title = "Match Detail"
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -369,7 +371,7 @@ class DetailActivity : AppCompatActivity(), DetailView, AnkoLogger {
         dataDetail.clear()
         dataDetail.addAll(data)
 //        info{ "detailnya "+dataDetail}
-        dateTextView.text = dataDetail.map{ it.eventDate }[0].toString()
+        dateTextView.setFormattedDateFav(dataDetail.map{ it.eventDate }[0].toString())
 
         teamHomeTextView.text = dataDetail.map{it.teamHome}[0].toString()
         teamAwayTextView.text = dataDetail.map{it.teamAway}[0].toString()

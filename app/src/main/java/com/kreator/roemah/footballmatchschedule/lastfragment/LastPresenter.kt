@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import com.kreator.roemah.footballmatchschedule.api.ApiRepository
 import com.kreator.roemah.footballmatchschedule.api.TheSportDBApi
 import com.kreator.roemah.footballmatchschedule.model.EventScheduleResp
+import com.kreator.roemah.footballmatchschedule.model.LeagueListResp
 import com.kreator.roemah.footballmatchschedule.util.CoroutineContextProvider
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
@@ -22,8 +23,25 @@ class LastPresenter(private val view: LastView,
                         EventScheduleResp::class.java)
             }
 
-            view.showLeagueList(data.await().EventSchedule)
-            view.hideLoading()
+            view.apply {
+                this.showLeagueList(data.await().EventSchedule)
+                this.hideLoading()
+            }
+
         }
+    }
+
+    fun getAllPastLeague(){
+        async (UI){
+            val data = bg{
+                gson.fromJson(apiRepository.doRequest(TheSportDBApi.getAllLeague()),
+                        LeagueListResp::class.java)
+            }
+
+            view.apply {
+                this.showAllLeagues(data.await().leagues)
+            }
+        }
+
     }
 }

@@ -48,6 +48,12 @@
     <item name="listNextEvent" type="id" />
     <item name="listPastEvent" type="id" />
     <item name="ListEvent" type="id" />
+    <item name="spinneran" type="id" />
+    <item name="spinneranNext" type="id" />
+    <item name="team_badge" type="id" />
+    <item name="team_name" type="id" />
+    <item name="tabs" type="id" />
+    <item name="containerPager" type="id" />
 
 
 </resources>
